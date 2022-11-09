@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "701271e9-2e51-4c4b-bc37-6576223e9251",
+		"name": "KVS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17077863"
+	},
+	"item": [
+		{
+			"name": "Films",
+			"item": [
+				{
+					"name": "Films",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "{{APIKEY}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{host}}/films?countries=&genres&order&type&ratingFrom=&ratingTo&yearFrom&yearTo&imdbId&keyword&page",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"films"
+							],
+							"query": [
+								{
+									"key": "countries",
+									"value": "",
+									"description": "Array of countries ids"
+								},
+								{
+									"key": "genres",
+									"value": null,
+									"description": "Array of genres ids"
+								},
+								{
+									"key": "order",
+									"value": null,
+									"description": "Available values:\nRATING\nNUM_VOTE\nYEAR\n\nDefault: ALL"
+								},
+								{
+									"key": "type",
+									"value": null,
+									"description": "Available values:\nFILM\nTV_SHOW\nTV_SERIES\nMINI_SERIES\nALL\nDefault: ALL"
+								},
+								{
+									"key": "ratingFrom",
+									"value": "",
+									"description": "Default: 0"
+								},
+								{
+									"key": "ratingTo",
+									"value": null,
+									"description": "Default: 10"
+								},
+								{
+									"key": "yearFrom",
+									"value": null,
+									"description": "Default: 1000"
+								},
+								{
+									"key": "yearTo",
+									"value": null,
+									"description": "Default: 3000"
+								},
+								{
+									"key": "imdbId",
+									"value": null
+								},
+								{
+									"key": "keyword",
+									"value": null,
+									"description": "Keyword by movie title"
+								},
+								{
+									"key": "page",
+									"value": null,
+									"description": "Default: 1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Original",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "{{APIKEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{kinpoisk_url}}/api/v2.2/films?countries=",
+							"host": [
+								"{{kinpoisk_url}}"
+							],
+							"path": [
+								"api",
+								"v2.2",
+								"films"
+							],
+							"query": [
+								{
+									"key": "countries",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Filters",
+			"item": [
+				{
+					"name": "Original",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "{{APIKEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{kinpoisk_url}}/api/v2.2/films/filters",
+							"host": [
+								"{{kinpoisk_url}}"
+							],
+							"path": [
+								"api",
+								"v2.2",
+								"films",
+								"filters"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
