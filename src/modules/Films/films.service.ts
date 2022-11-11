@@ -1,9 +1,15 @@
 import { HttpService } from '@nestjs/axios';
-import { Dependencies, Injectable } from '@nestjs/common';
+import {
+  Dependencies,
+  Injectable,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { KinopoiskAPI } from '../../constants';
-import { GetAllFilms, GetAllFilmsQueriesParamsDto } from './dto/films.dto';
+import { GetAllFilmsDto, GetAllFilmsQueriesParamsDto } from './dto/films.dto';
+import * as config from 'config';
 
 @Injectable()
 @Dependencies(HttpService)
@@ -12,11 +18,11 @@ export class FilmsService {
 
   async findAll(
     queryParams: GetAllFilmsQueriesParamsDto,
-  ): Promise<GetAllFilms> {
-    const url = `${process.env.KINOPOISK_BASE_URL}/${KinopoiskAPI.films}`;
+  ): Promise<GetAllFilmsDto> {
+    const url = `${config.get('urls.kinopoisk.base')}/${KinopoiskAPI.films}`;
     const { data } = await firstValueFrom(
       this.httpService
-        .get<GetAllFilms>(url, {
+        .get<GetAllFilmsDto>(url, {
           headers: {
             'X-API-KEY': process.env.KINOPOISK_APIKEY,
             'Content-Type': 'application/json',
@@ -24,8 +30,11 @@ export class FilmsService {
           params: queryParams,
         })
         .pipe(
-          catchError((error: AxiosError) => {
-            throw 'An error happened! ' + error;
+          catchError((error: AxiosError<{ message: string }>) => {
+            throw new HttpException(
+              error.response.data.message,
+              HttpStatus.BAD_GATEWAY,
+            );
           }),
         ),
     );

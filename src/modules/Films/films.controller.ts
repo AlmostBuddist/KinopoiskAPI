@@ -1,7 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { FilmsService } from './films.service';
 import { getIdsFromString, queryNumberCheck } from '../../utility';
-import { GetAllFilms, GetAllFilmsQueriesDto } from './dto/films.dto';
+import { GetAllFilmsDto, GetAllFilmsQueriesDto } from './dto/films.dto';
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Films')
@@ -12,7 +12,7 @@ export class FilmsController {
   @Get()
   @ApiOkResponse({
     description: 'Success get films',
-    type: GetAllFilms,
+    type: GetAllFilmsDto,
   })
   @ApiBadRequestResponse({
     description: 'Wrong filter format',
