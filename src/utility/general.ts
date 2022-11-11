@@ -1,10 +1,22 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 
-export function getIdsFromString(ids: string, name?: string): number[] {
+export function getIdsFromString(ids: string, name?: string): string {
   try {
-    const array = ids.split(',');
+    const array = ids.split(',').map((elem) => elem.trim());
+    const filteredArray = array.filter((elem) => {
+      if (!isNaN(Number(elem)) && elem.trim()) {
+        return true;
+      }
+      return false;
+    });
 
-    return array.map((elem) => +elem).filter((elem) => elem);
+    if (filteredArray.length === 1) {
+      return filteredArray[0];
+    }
+
+    const uniqueArray = new Set(filteredArray);
+
+    return Array.from(uniqueArray).join(',');
   } catch (error) {
     let message: string;
     if (name) {
@@ -17,8 +29,8 @@ export function getIdsFromString(ids: string, name?: string): number[] {
 }
 
 export function queryNumberCheck(query: string, name?: string): number {
-  if (+query) {
-    return +query;
+  if (Number(query)) {
+    return Number(query);
   }
 
   let message: string;

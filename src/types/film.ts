@@ -29,16 +29,16 @@ export class IFilm {
     required: false,
     nullable: true,
   })
-  readonly imdbId: string | null;
+  readonly imdbId?: string | null;
 
   @ApiProperty({ type: String, required: false, nullable: true })
-  readonly nameRu: string | null;
+  readonly nameRu?: string | null;
 
   @ApiProperty({ type: String, required: false, nullable: true })
-  readonly nameEn: string | null;
+  readonly nameEn?: string | null;
 
   @ApiProperty({ type: String, required: false, nullable: true })
-  readonly nameOriginal: string | null;
+  readonly nameOriginal?: string | null;
 
   @ApiProperty({ type: [ICountriesShort] })
   readonly countries: ICountriesShort[];
@@ -50,7 +50,7 @@ export class IFilm {
   readonly ratingKinopoisk: number;
 
   @ApiProperty({ type: Number, required: false, nullable: true })
-  readonly ratingImdb: number | null;
+  readonly ratingImdb?: number | null;
 
   @ApiProperty({ type: Number })
   readonly year: number;
@@ -63,18 +63,4 @@ export class IFilm {
 
   @ApiProperty({ type: String })
   readonly posterUrlPreview: string;
-}
-
-export enum FilmOrderEnum {
-  RATING = 'RATING',
-  NUM_VOTE = 'NUM_VOTE',
-  YEAR = 'YEAR',
-}
-
-export enum FilmTypeEnum {
-  FILM = 'FILM',
-  TV_SHOW = 'TV_SHOW',
-  TV_SERIES = 'TV_SERIES',
-  MINI_SERIES = 'MINI_SERIES',
-  ALL = 'ALL',
 }
