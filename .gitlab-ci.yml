@@ -1,0 +1,14 @@
+stages:
+  - build
+
+build: &build
+  image: node:16.13.1
+  stage: build
+  before_script: yarn
+  script: yarn build
+
+merge-request-pipeline-job:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  <<: *build
+  stage: .pre
