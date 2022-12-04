@@ -6,4 +6,3 @@ build:
   stage: build
   before_script: yarn
   script: yarn build
-  when: manual
