@@ -1,4 +1,5 @@
-
+variables:
+  NODE_IMAGE: node:16.13.1
 
 stages:
   - Build
@@ -7,17 +8,17 @@ stages:
 
 build: 
   stage: Build
-  image: $node_image node:16.13.1
+  image: $(NODE_IMAGE)
   before_script: yarn
   script: yarn build
 
 lint:
   stage: Lint 
-  image: *node_image
+  image: $(NODE_IMAGE)
   script: yarn lint
 
 audit:
   stage: Audit
-  image: *node_image
+  image: $(NODE_IMAGE)
   script: yarn audit
   allow_failure: true
