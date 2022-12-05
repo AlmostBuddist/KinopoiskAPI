@@ -1,8 +1,23 @@
+
+
 stages:
-  - build
+  - Build
+  - Lint
+  - Audit
 
 build: 
-  image: node:16.13.1
-  stage: build
+  stage: Build
+  image: $node_image node:16.13.1
   before_script: yarn
   script: yarn build
+
+lint:
+  stage: Lint 
+  image: *node_image
+  script: yarn lint
+
+audit:
+  stage: Audit
+  image: *node_image
+  script: yarn audit
+  allow_failure: true
