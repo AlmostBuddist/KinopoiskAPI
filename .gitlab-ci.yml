@@ -15,7 +15,9 @@ build:
 lint:
   stage: Lint 
   image: ${NODE_IMAGE}
-  script: yarn lint
+  script: 
+    - yarn
+    - yarn lint
 
 audit:
   stage: Audit
