@@ -1,8 +1,26 @@
+variables:
+  NODE_IMAGE: node:16.13.1
+
 stages:
-  - build
+  - Build
+  - Lint
+  - Audit
 
 build: 
-  image: node:16.13.1
-  stage: build
+  stage: Build
+  image: ${NODE_IMAGE}
   before_script: yarn
   script: yarn build
+
+lint:
+  stage: Lint 
+  image: ${NODE_IMAGE}
+  script: 
+    - yarn
+    - yarn lint
+
+audit:
+  stage: Audit
+  image: ${NODE_IMAGE}
+  script: yarn audit
+  allow_failure: true
