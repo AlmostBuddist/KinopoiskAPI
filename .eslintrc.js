@@ -6,10 +6,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'jest'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['plugin:@typescript-eslint/recommended', 'airbnb-base', 'plugin:prettier/recommended'],
   root: true,
   env: {
     node: true,
@@ -17,6 +14,13 @@ module.exports = {
     'jest/globals': true,
   },
   ignorePatterns: ['.eslintrc.js'],
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts'],
+      },
+    },
+  },
   rules: {
     /* base */
 
@@ -28,6 +32,44 @@ module.exports = {
 
     'no-console': 'warn',
 
+    /* airbnb */
+
+    'no-useless-constructor': 'off',
+    'import/extensions': [
+      'warn',
+      {
+        ts: 'never',
+      },
+    ],
+    'no-empty-function': 'off',
+    '@typescript-eslint/no-empty-function': [
+      'error',
+      {
+        allow: [
+          'functions',
+          'arrowFunctions',
+          'generatorFunctions',
+          'methods',
+          'generatorMethods',
+          'getters',
+          'setters',
+          'asyncFunctions',
+          'asyncMethods',
+        ],
+      },
+    ],
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
+    'no-restricted-globals': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+
+    /* prettier */
+
+    'prettier/prettier': [
+      'error',
+      { useTabs: false, tabWidth: 2, singleQuote: false, trailingComma: 'all' },
+    ],
+
     /* jest */
 
     'jest/no-disabled-tests': 'warn',
@@ -36,4 +78,10 @@ module.exports = {
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
   },
+  overrides: [
+    {
+      files: ['src/types/*.*', '**/*.dto.ts'],
+      rules: { 'max-classes-per-file': 'off' },
+    },
+  ],
 };

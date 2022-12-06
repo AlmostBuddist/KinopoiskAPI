@@ -1,10 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { FilmsController } from './films.controller';
-import { FilmsService } from './films.service';
-import { HttpModule } from '@nestjs/axios';
-import { films } from './testData';
+import { Test, TestingModule } from "@nestjs/testing";
+import { HttpModule } from "@nestjs/axios";
+import { FilmsController } from "./films.controller";
+import { FilmsService } from "./films.service";
+import { films } from "./testData";
 
-describe('Films Controller', () => {
+describe("Films Controller", () => {
   let filmsController: FilmsController;
   let filmsService: FilmsService;
 
@@ -26,20 +26,20 @@ describe('Films Controller', () => {
     filmsService = filmsModule.get<FilmsService>(FilmsService);
   });
 
-  describe('Defined', () => {
-    it('should be defined', async () => {
+  describe("Defined", () => {
+    it("should be defined", async () => {
       expect(filmsController).toBeDefined();
     });
   });
 
-  describe('Get all films', () => {
-    it('Should be called', async () => {
+  describe("Get all films", () => {
+    it("Should be called", async () => {
       filmsController.getAll({});
 
       expect(filmsService.findAll).toHaveBeenCalled();
     });
 
-    it('Should return a list of films', async () => {
+    it("Should return a list of films", async () => {
       expect(filmsService.findAll({})).toBe(films);
     });
   });

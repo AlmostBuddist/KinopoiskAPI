@@ -1,9 +1,9 @@
-import { CacheModule, CacheStore, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { FilmsModule } from '../Films/films.module';
+import { CacheModule, CacheStore, Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
 // import * as config from 'config';
-import { redisStore } from 'cache-manager-redis-store';
-import { RedisClientOptions } from 'redis';
+import { redisStore } from "cache-manager-redis-store";
+import { RedisClientOptions } from "redis";
+import { FilmsModule } from "../Films/films.module";
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { RedisClientOptions } from 'redis';
       isGlobal: true,
       useFactory: async () => {
         const store = await redisStore({
-          socket: { host: 'localhost', port: 6379 },
+          socket: { host: "localhost", port: 6379 },
           ttl: 60 * 60,
         });
         // const store = await redisStore(configLocal);
@@ -26,4 +26,4 @@ import { RedisClientOptions } from 'redis';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export default class AppModule {}
