@@ -12,12 +12,15 @@ build:
   image: ${NODE_IMAGE}
   before_script: yarn
   script: yarn build
+  cache:
+    key: cache-${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules
 
 lint:
   stage: Lint
   image: ${NODE_IMAGE}
   script:
-    - yarn
     - yarn lint
 
 test:
