@@ -25,7 +25,7 @@ export default class FilmsService {
   ) {}
 
   async findAll(
-    queryParams: GetAllFilmsQueriesParamsDto,
+    queryParams?: GetAllFilmsQueriesParamsDto,
   ): Promise<GetAllFilmsDto> {
     try {
       const url = `${config.get("urls.kinopoisk.base")}/${
