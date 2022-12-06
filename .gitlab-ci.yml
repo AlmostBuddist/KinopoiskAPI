@@ -38,6 +38,7 @@ install:
 
 build:
   stage: Build
+  image: ${NODE_IMAGE}
   script: yarn build
   artifacts:
     paths:
