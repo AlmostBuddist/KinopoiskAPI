@@ -1,7 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { FilmOrderEnum, FilmTypeEnum } from '../../../constants';
-import { IFilm, IGenre } from '../../../types';
-import { ICountries } from '../../../types/film';
+import { ApiProperty } from "@nestjs/swagger";
+import { FilmOrderEnum, FilmTypeEnum } from "../../../constants";
+import { IFilm, IGenre } from "../../../types";
+import { ICountries } from "../../../types/film";
 
 export class GetAllFilmsDto {
   @ApiProperty({ type: Number })
@@ -22,7 +22,7 @@ export class GetAllFilmsQueriesDto {
     isArray: true,
     type: Number,
     description:
-      'Список id стран разделенные запятой. Например countries=1,2,3. На данный момент можно указать не более одной страны',
+      "Список id стран разделенные запятой. Например countries=1,2,3. На данный момент можно указать не более одной страны",
   })
   readonly countries?: string | undefined;
 
@@ -31,7 +31,7 @@ export class GetAllFilmsQueriesDto {
     isArray: true,
     type: Number,
     description:
-      'Список id жанров разделенные запятой. Например genres=1,2,3. На данный момент можно указать не более одного жанра',
+      "Список id жанров разделенные запятой. Например genres=1,2,3. На данный момент можно указать не более одного жанра",
   })
   readonly genres?: string | undefined;
 
@@ -39,7 +39,7 @@ export class GetAllFilmsQueriesDto {
     required: false,
     enum: FilmOrderEnum,
     default: FilmOrderEnum.RATING,
-    description: 'Сортировка',
+    description: "Сортировка",
   })
   readonly order?: keyof typeof FilmOrderEnum | undefined;
 
@@ -47,7 +47,7 @@ export class GetAllFilmsQueriesDto {
     required: false,
     enum: FilmTypeEnum,
     default: FilmTypeEnum.ALL,
-    description: 'Тип фильма',
+    description: "Тип фильма",
   })
   readonly type?: keyof typeof FilmTypeEnum | undefined;
 
@@ -55,7 +55,7 @@ export class GetAllFilmsQueriesDto {
     required: false,
     default: 0,
     type: Number,
-    description: 'Минимальный рейтинг',
+    description: "Минимальный рейтинг",
   })
   readonly ratingFrom?: string | undefined;
 
@@ -63,7 +63,7 @@ export class GetAllFilmsQueriesDto {
     required: false,
     default: 10,
     type: Number,
-    description: 'Максимальный рейтинг',
+    description: "Максимальный рейтинг",
   })
   readonly ratingTo?: string | undefined;
 
@@ -71,7 +71,7 @@ export class GetAllFilmsQueriesDto {
     required: false,
     default: 1000,
     type: Number,
-    description: 'Минимальный год',
+    description: "Минимальный год",
   })
   readonly yearFrom?: string | undefined;
 
@@ -79,7 +79,7 @@ export class GetAllFilmsQueriesDto {
     required: false,
     default: 3000,
     type: Number,
-    description: 'Максимальный год',
+    description: "Максимальный год",
   })
   readonly yearTo?: string | undefined;
 
@@ -90,34 +90,45 @@ export class GetAllFilmsQueriesDto {
 
   @ApiProperty({
     required: false,
-    description: 'Ключевое слово, которое встречается в названии фильма',
+    description: "Ключевое слово, которое встречается в названии фильма",
   })
   readonly keyword?: string | undefined;
 
   @ApiProperty({
     required: false,
-    default: '1',
+    default: "1",
     type: Number,
-    description: 'Номер страницы',
+    description: "Номер страницы",
   })
   readonly page?: string | undefined;
 }
 
 export class GetAllFilmsQueriesParamsDto {
   readonly countries?: string | undefined;
+
   readonly genres?: string | undefined;
+
   readonly order?: keyof typeof FilmOrderEnum | undefined;
+
   readonly type?: keyof typeof FilmTypeEnum | undefined;
+
   readonly ratingFrom?: number | undefined;
+
   readonly ratingTo?: number | undefined;
+
   readonly yearFrom?: number | undefined;
+
   readonly yearTo?: number | undefined;
+
   readonly imdbId?: string | undefined;
+
   readonly keyword?: string | undefined;
+
   readonly page?: number | undefined;
 }
 
 export class GetAllFiltersDto {
   readonly genres: IGenre[];
+
   readonly countries: ICountries[];
 }

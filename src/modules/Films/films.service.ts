@@ -1,4 +1,4 @@
-import { HttpService } from '@nestjs/axios';
+import { HttpService } from "@nestjs/axios";
 import {
   Dependencies,
   Injectable,
@@ -6,19 +6,19 @@ import {
   HttpStatus,
   Inject,
   CACHE_MANAGER,
-} from '@nestjs/common';
-import { CACHE_KEYS_ENUM, KINOPOISK_API_ENUM } from '../../constants';
+} from "@nestjs/common";
+import * as config from "config";
+import { Cache } from "cache-manager";
+import { CACHE_KEYS_ENUM, KINOPOISK_API_ENUM } from "../../constants";
 import {
   GetAllFilmsDto,
   GetAllFilmsQueriesParamsDto,
   GetAllFiltersDto,
-} from './dto/films.dto';
-import * as config from 'config';
-import { Cache } from 'cache-manager';
+} from "./dto/films.dto";
 
 @Injectable()
 @Dependencies(HttpService)
-export class FilmsService {
+export default class FilmsService {
   constructor(
     private readonly httpService: HttpService,
     @Inject(CACHE_MANAGER) private cacheService: Cache,
@@ -27,22 +27,32 @@ export class FilmsService {
   async findAll(
     queryParams: GetAllFilmsQueriesParamsDto,
   ): Promise<GetAllFilmsDto> {
-    const url = `${config.get('urls.kinopoisk.base')}/${
-      KINOPOISK_API_ENUM.FILMS
-    }`;
-    const { data } = await this.httpService.axiosRef.get<GetAllFilmsDto>(url, {
-      headers: {
-        'X-API-KEY': process.env.KINOPOISK_APIKEY,
-        'Content-Type': 'application/json',
-      },
-      params: queryParams,
-    });
+    try {
+      const url = `${config.get("urls.kinopoisk.base")}/${
+        KINOPOISK_API_ENUM.FILMS
+      }`;
+      const { data } = await this.httpService.axiosRef.get<GetAllFilmsDto>(
+        url,
+        {
+          headers: {
+            "X-API-KEY": process.env.KINOPOISK_APIKEY,
+            "Content-Type": "application/json",
+          },
+          params: queryParams,
+        },
+      );
 
-    return await data;
+      return await data;
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.message,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async getFilters(): Promise<GetAllFiltersDto> {
-    const url = `${config.get('urls.kinopoisk.base')}/${
+    const url = `${config.get("urls.kinopoisk.base")}/${
       KINOPOISK_API_ENUM.FILTERS
     }`;
 
@@ -59,8 +69,8 @@ export class FilmsService {
         url,
         {
           headers: {
-            'X-API-KEY': process.env.KINOPOISK_APIKEY,
-            'Content-Type': 'application/json',
+            "X-API-KEY": process.env.KINOPOISK_APIKEY,
+            "Content-Type": "application/json",
           },
         },
       );

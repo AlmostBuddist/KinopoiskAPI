@@ -4,58 +4,59 @@ const films = {
   items: [
     {
       kinopoiskId: 1252447,
-      imdbId: 'tt9257638',
-      nameRu: 'Лорды раздевалки',
+      imdbId: "tt9257638",
+      nameRu: "Лорды раздевалки",
       nameEn: null,
-      nameOriginal: 'Lords of the Lockerroom',
+      nameOriginal: "Lords of the Lockerroom",
       countries: [
         {
-          country: 'США',
+          country: "США",
         },
       ],
       genres: [
         {
-          genre: 'спорт',
+          genre: "спорт",
         },
         {
-          genre: 'для взрослых',
+          genre: "для взрослых",
         },
       ],
       ratingKinopoisk: 9.4,
       ratingImdb: 9.3,
       year: 1999,
-      type: 'FILM',
+      type: "FILM",
       posterUrl:
-        'https://kinopoiskapiunofficial.tech/images/posters/kp/1252447.jpg',
+        "https://kinopoiskapiunofficial.tech/images/posters/kp/1252447.jpg",
       posterUrlPreview:
-        'https://kinopoiskapiunofficial.tech/images/posters/kp_small/1252447.jpg',
+        "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1252447.jpg",
     },
     {
       kinopoiskId: 962472,
-      imdbId: 'tt5396486',
-      nameRu: 'Hot Wheels. За гранью воображения',
+      imdbId: "tt5396486",
+      nameRu: "Hot Wheels. За гранью воображения",
       nameEn: null,
-      nameOriginal: 'Team Hot Wheels: The Skills to Thrill',
+      nameOriginal: "Team Hot Wheels: The Skills to Thrill",
       countries: [
         {
-          country: 'США',
+          country: "США",
         },
       ],
       genres: [
         {
-          genre: 'мультфильм',
+          genre: "мультфильм",
         },
       ],
       ratingKinopoisk: 9.3,
       ratingImdb: 7.1,
       year: 2015,
-      type: 'FILM',
+      type: "FILM",
       posterUrl:
-        'https://kinopoiskapiunofficial.tech/images/posters/kp/962472.jpg',
+        "https://kinopoiskapiunofficial.tech/images/posters/kp/962472.jpg",
       posterUrlPreview:
-        'https://kinopoiskapiunofficial.tech/images/posters/kp_small/962472.jpg',
+        "https://kinopoiskapiunofficial.tech/images/posters/kp_small/962472.jpg",
     },
   ],
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export { films };
