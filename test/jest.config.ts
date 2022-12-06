@@ -11,5 +11,5 @@ export default async (): Promise<Config> => ({
   coverageDirectory: "../coverage",
   testEnvironment: "node",
   verbose: true,
-  bail: 4,
+  bail: 1,
 });
