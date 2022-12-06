@@ -46,19 +46,15 @@ build:
 
 lint:
   stage: Lint
-  image: ${NODE_IMAGE}
   script:
     - yarn lint
 
 test:
   stage: Test
-  image: ${NODE_IMAGE}
   script:
-    - yarn
     - yarn test
 
 audit:
   stage: Audit
-  image: ${NODE_IMAGE}
   script: yarn audit
   allow_failure: true
