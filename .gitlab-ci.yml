@@ -4,20 +4,28 @@ variables:
 stages:
   - Build
   - Lint
+  - Test
   - Audit
 
-build: 
+build:
   stage: Build
   image: ${NODE_IMAGE}
   before_script: yarn
   script: yarn build
 
 lint:
-  stage: Lint 
+  stage: Lint
   image: ${NODE_IMAGE}
-  script: 
+  script:
     - yarn
     - yarn lint
+
+test:
+  stage: Test
+  image: ${NODE_IMAGE}
+  script:
+    - yarn
+    - yarn test
 
 audit:
   stage: Audit
