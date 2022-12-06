@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { FilmOrderEnum, FilmTypeEnum } from '../../../constants';
-import { IFilm } from '../../../types';
+import { IFilm, IGenre } from '../../../types';
+import { ICountries } from '../../../types/film';
 
 export class GetAllFilmsDto {
   @ApiProperty({ type: Number })
@@ -114,4 +115,9 @@ export class GetAllFilmsQueriesParamsDto {
   readonly imdbId?: string | undefined;
   readonly keyword?: string | undefined;
   readonly page?: number | undefined;
+}
+
+export class GetAllFiltersDto {
+  readonly genres: IGenre[];
+  readonly countries: ICountries[];
 }
