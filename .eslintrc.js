@@ -26,6 +26,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
 
+    'no-console': 'warn',
+
     /* jest */
 
     'jest/no-disabled-tests': 'warn',

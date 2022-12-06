@@ -1,4 +1,12 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  CacheInterceptor,
+  CacheKey,
+  CacheTTL,
+  Controller,
+  Get,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import { FilmsService } from './films.service';
 import { getIdsFromString, queryNumberCheck } from '../../utility';
 import { GetAllFilmsDto, GetAllFilmsQueriesDto } from './dto/films.dto';
@@ -52,5 +60,13 @@ export class FilmsController {
     };
 
     return this.filmsService.findAll(queryParams);
+  }
+
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey('filters')
+  @CacheTTL(60 * 60) // 1 hour
+  @Get('/filters')
+  gitFilters() {
+    return this.filmsService.getFilters();
   }
 }
