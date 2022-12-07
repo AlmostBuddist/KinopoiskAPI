@@ -1,7 +1,8 @@
 import { CacheModule, CacheStore, Module } from "@nestjs/common";
 import { redisStore } from "cache-manager-redis-store";
-import { RedisClientOptions } from "redis";
 import * as config from "config";
+import { RedisClientOptions } from "redis";
+
 import FilmsModule from "../Films/films.module";
 
 @Module({

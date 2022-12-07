@@ -1,14 +1,15 @@
-import { Test, TestingModule } from "@nestjs/testing";
 import { HttpModule } from "@nestjs/axios";
 import { CACHE_MANAGER } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
+
 import FilmsController from "../films.controller";
 import FilmsService from "../films.service";
 import {
-  FILMS_TEST_DATA,
   FILMS_REPOSITORY_MOCK,
-  FILTER_TEST_DATA,
   FILMS_REPOSITORY_MOCK_GET_ALL_CONTROLLER,
   FILMS_REPOSITORY_MOCK_GET_FILTERS_CONTROLLER,
+  FILMS_TEST_DATA,
+  FILTER_TEST_DATA,
 } from "./films.mock";
 
 describe("Films Controller", () => {

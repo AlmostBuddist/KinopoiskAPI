@@ -8,9 +8,10 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
-import FilmsService from "./films.service";
+
 import { getIdsFromString, queryNumberCheck } from "../../utility";
 import { GetAllFilmsDto, GetAllFilmsQueriesDto } from "./dto/films.dto";
+import FilmsService from "./films.service";
 
 const ttl = 60 * 60; // 1 hour
 
@@ -27,7 +28,7 @@ export default class FilmsController {
   @ApiBadRequestResponse({
     description: "Wrong filter format",
   })
-  getAll(
+  public getAll(
     @Query()
     {
       countries,
@@ -68,7 +69,7 @@ export default class FilmsController {
   @CacheKey("filters")
   @CacheTTL(ttl)
   @Get("/filters")
-  gitFilters() {
+  public gitFilters() {
     return this.filmsService.getFilters();
   }
 }

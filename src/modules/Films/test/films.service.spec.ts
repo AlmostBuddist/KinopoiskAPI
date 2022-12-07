@@ -1,7 +1,9 @@
-import { Test, TestingModule } from "@nestjs/testing";
 import { HttpService } from "@nestjs/axios";
 import { CACHE_MANAGER } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
 import { Cache } from "cache-manager";
+
+import FilmsService from "../films.service";
 import {
   CACHE_MANAGER_REPOSITORY_MOCK,
   CACHE_MANAGER_REPOSITORY_MOCK_HAVE_CACHE,
@@ -15,7 +17,6 @@ import {
   HTTP_REPOSITORY_MOCK_GET_ALL,
   HTTP_REPOSITORY_MOCK_GET_FILTERS,
 } from "./films.mock";
-import FilmsService from "../films.service";
 
 describe("Films Service", () => {
   let filmsService: FilmsService;

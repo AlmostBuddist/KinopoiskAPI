@@ -1,66 +1,66 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class IGenreShort {
+export class GenreShort {
   @ApiProperty({ type: String })
-  readonly genre: string;
+  public readonly genre: string;
 }
 
-export class IGenre extends IGenreShort {
+export class Genre extends GenreShort {
   @ApiProperty({ type: Number })
-  readonly id: number;
+  public readonly id: number;
 }
 
-export class ICountriesShort {
+export class CountriesShort {
   @ApiProperty({ type: String })
-  readonly country: string;
+  public readonly country: string;
 }
 
-export class ICountries extends ICountriesShort {
+export class Countries extends CountriesShort {
   @ApiProperty({ type: Number })
-  readonly id: number;
+  public readonly id: number;
 }
 
-export class IFilm {
+export class Film {
   @ApiProperty({ type: Number })
-  readonly kinopoiskId: number;
+  public readonly kinopoiskId: number;
 
   @ApiProperty({
     type: String,
     required: false,
     nullable: true,
   })
-  readonly imdbId?: string | null;
+  public readonly imdbId?: string | null;
 
   @ApiProperty({ type: String, required: false, nullable: true })
-  readonly nameRu?: string | null;
+  public readonly nameRu?: string | null;
 
   @ApiProperty({ type: String, required: false, nullable: true })
-  readonly nameEn?: string | null;
+  public readonly nameEn?: string | null;
 
   @ApiProperty({ type: String, required: false, nullable: true })
-  readonly nameOriginal?: string | null;
+  public readonly nameOriginal?: string | null;
 
-  @ApiProperty({ type: [ICountriesShort] })
-  readonly countries: ICountriesShort[];
+  @ApiProperty({ type: [CountriesShort] })
+  public readonly countries: CountriesShort[];
 
-  @ApiProperty({ type: [IGenreShort] })
-  readonly genres: IGenreShort[];
+  @ApiProperty({ type: [GenreShort] })
+  public readonly genres: GenreShort[];
 
   @ApiProperty({ type: Number })
-  readonly ratingKinopoisk: number;
+  public readonly ratingKinopoisk: number;
 
   @ApiProperty({ type: Number, required: false, nullable: true })
-  readonly ratingImdb?: number | null;
+  public readonly ratingImdb?: number | null;
 
   @ApiProperty({ type: Number })
-  readonly year: number;
+  public readonly year: number;
 
   @ApiProperty({ type: String })
-  readonly type: string;
+  public readonly type: string;
 
   @ApiProperty({ type: String })
-  readonly posterUrl: string;
+  public readonly posterUrl: string;
 
   @ApiProperty({ type: String })
-  readonly posterUrlPreview: string;
+  public readonly posterUrlPreview: string;
 }

@@ -1,15 +1,16 @@
 import { HttpService } from "@nestjs/axios";
 import {
+  CACHE_MANAGER,
   Dependencies,
-  Injectable,
   HttpException,
   HttpStatus,
   Inject,
-  CACHE_MANAGER,
+  Injectable,
 } from "@nestjs/common";
-import * as config from "config";
 import { Cache } from "cache-manager";
-import { CACHE_KEYS_ENUM, KINOPOISK_API_ENUM } from "../../constants";
+import * as config from "config";
+
+import { CacheKeysEnum, KinopoiskApiEnum } from "../../constants";
 import {
   GetAllFilmsDto,
   GetAllFilmsQueriesParamsDto,
@@ -24,12 +25,12 @@ export default class FilmsService {
     @Inject(CACHE_MANAGER) private cacheService: Cache,
   ) {}
 
-  async findAll(
+  public async findAll(
     queryParams?: GetAllFilmsQueriesParamsDto,
   ): Promise<GetAllFilmsDto> {
     try {
       const url = `${config.get("urls.kinopoisk.base")}/${
-        KINOPOISK_API_ENUM.FILMS
+        KinopoiskApiEnum.FILMS
       }`;
       const { data } = await this.httpService.axiosRef.get<GetAllFilmsDto>(
         url,
@@ -51,14 +52,14 @@ export default class FilmsService {
     }
   }
 
-  async getFilters(): Promise<GetAllFiltersDto> {
+  public async getFilters(): Promise<GetAllFiltersDto> {
     const url = `${config.get("urls.kinopoisk.base")}/${
-      KINOPOISK_API_ENUM.FILTERS
+      KinopoiskApiEnum.FILTERS
     }`;
 
     try {
       const cachedData = await this.cacheService.get<GetAllFiltersDto>(
-        CACHE_KEYS_ENUM.FILTERS,
+        CacheKeysEnum.FILTERS,
       );
 
       if (cachedData) {
@@ -75,7 +76,7 @@ export default class FilmsService {
         },
       );
 
-      await this.cacheService.set(CACHE_KEYS_ENUM.FILTERS, data);
+      await this.cacheService.set(CacheKeysEnum.FILTERS, data);
 
       return await data;
     } catch (error) {
