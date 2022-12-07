@@ -1,8 +1,10 @@
+/* eslint-disable */
+
 module.exports = {
   redis: {
     socket: {
       host: 'localhost',
-      port: '6379',
+      port: 6379,
     },
     ttl: 60 * 60, // 1 hour
   },

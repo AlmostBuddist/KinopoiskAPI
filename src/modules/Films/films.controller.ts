@@ -12,6 +12,8 @@ import FilmsService from "./films.service";
 import { getIdsFromString, queryNumberCheck } from "../../utility";
 import { GetAllFilmsDto, GetAllFilmsQueriesDto } from "./dto/films.dto";
 
+const ttl = 60 * 60; // 1 hour
+
 @ApiTags("Films")
 @Controller("films")
 export default class FilmsController {
@@ -64,7 +66,7 @@ export default class FilmsController {
 
   @UseInterceptors(CacheInterceptor)
   @CacheKey("filters")
-  @CacheTTL(60 * 60) // 1 hour
+  @CacheTTL(ttl)
   @Get("/filters")
   gitFilters() {
     return this.filmsService.getFilters();
