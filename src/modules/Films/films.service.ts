@@ -35,7 +35,7 @@ export default class FilmsService {
         url,
         {
           headers: {
-            "X-API-KEY": process.env.KINOPOISK_APIKEY,
+            "X-API-KEY": config.get("kinopoiskKey"),
             "Content-Type": "application/json",
           },
           params: queryParams,
@@ -69,7 +69,7 @@ export default class FilmsService {
         url,
         {
           headers: {
-            "X-API-KEY": process.env.KINOPOISK_APIKEY,
+            "X-API-KEY": config.get("kinopoiskKey"),
             "Content-Type": "application/json",
           },
         },
