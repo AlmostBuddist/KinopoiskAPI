@@ -7,6 +7,8 @@ stages:
   - Test
   - Audit
 
+image: ${NODE_IMAGE}
+
 cache:
   - key:
       files:
@@ -17,7 +19,6 @@ cache:
 
 install:
   stage: .pre
-  image: ${NODE_IMAGE}
   cache:
     - key: ${CI_JOB_NAME}
       paths:
@@ -36,7 +37,6 @@ install:
 
 build:
   stage: Build
-  image: ${NODE_IMAGE}
   script: yarn build
   artifacts:
     paths:
@@ -44,18 +44,15 @@ build:
 
 lint:
   stage: Lint
-  image: ${NODE_IMAGE}
   script:
     - yarn lint
 
 test:
   stage: Test
-  image: ${NODE_IMAGE}
   script:
     - yarn test
 
 audit:
   stage: Audit
-  image: ${NODE_IMAGE}
   script: yarn audit
   allow_failure: true
