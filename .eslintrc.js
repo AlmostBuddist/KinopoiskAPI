@@ -5,8 +5,8 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'jest'],
-  extends: ['plugin:@typescript-eslint/recommended', 'airbnb-base', 'plugin:prettier/recommended'],
+  plugins: ['jest'],
+  extends: ['@a2seven/eslint-config'],
   root: true,
   env: {
     node: true,
@@ -31,37 +31,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
 
     'no-console': 'warn',
-
-    /* airbnb */
-
-    'no-useless-constructor': 'off',
-    'import/extensions': [
-      'warn',
-      {
-        ts: 'never',
-      },
-    ],
-    'no-empty-function': 'off',
-    '@typescript-eslint/no-empty-function': [
-      'error',
-      {
-        allow: [
-          'functions',
-          'arrowFunctions',
-          'generatorFunctions',
-          'methods',
-          'generatorMethods',
-          'getters',
-          'setters',
-          'asyncFunctions',
-          'asyncMethods',
-        ],
-      },
-    ],
-    'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': ['error'],
     'no-restricted-globals': 'off',
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 
     /* prettier */
 
@@ -82,6 +52,12 @@ module.exports = {
     {
       files: ['src/types/*.*', '**/*.dto.ts'],
       rules: { 'max-classes-per-file': 'off' },
+    },
+    {
+      files: ['src/**/*.spec.ts'],
+      rules: {
+        '@typescript-eslint/naming-convention': 'off',
+      },
     },
   ],
 };

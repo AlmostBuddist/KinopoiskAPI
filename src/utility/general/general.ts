@@ -7,6 +7,7 @@ export function getIdsFromString(ids: string, name?: string): string {
       if (!isNaN(Number(elem)) && elem.trim()) {
         return true;
       }
+
       return false;
     });
 

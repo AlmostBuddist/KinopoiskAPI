@@ -121,6 +121,7 @@ export const FILMS_REPOSITORY_MOCK_GET_FILTERS = jest
     }
 
     const response = await HTTP_REPOSITORY_MOCK.axiosRef.get("http://some_url");
+
     return response;
   });
 
