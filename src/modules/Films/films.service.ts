@@ -1,44 +1,89 @@
-import { HttpService } from '@nestjs/axios';
+import { HttpService } from "@nestjs/axios";
 import {
+  CACHE_MANAGER,
   Dependencies,
-  Injectable,
   HttpException,
   HttpStatus,
-} from '@nestjs/common';
-import { AxiosError } from 'axios';
-import { catchError, firstValueFrom } from 'rxjs';
-import { KinopoiskAPI } from '../../constants';
-import { GetAllFilmsDto, GetAllFilmsQueriesParamsDto } from './dto/films.dto';
-import * as config from 'config';
+  Inject,
+  Injectable,
+} from "@nestjs/common";
+import { Cache } from "cache-manager";
+import * as config from "config";
+
+import { CacheKeysEnum, KinopoiskApiEnum } from "../../constants";
+import {
+  GetAllFilmsDto,
+  GetAllFilmsQueriesParamsDto,
+  GetAllFiltersDto,
+} from "./dto/films.dto";
 
 @Injectable()
 @Dependencies(HttpService)
-export class FilmsService {
-  constructor(private readonly httpService: HttpService) {}
+export default class FilmsService {
+  constructor(
+    private readonly httpService: HttpService,
+    @Inject(CACHE_MANAGER) private cacheService: Cache,
+  ) {}
 
-  async findAll(
-    queryParams: GetAllFilmsQueriesParamsDto,
+  public async findAll(
+    queryParams?: GetAllFilmsQueriesParamsDto,
   ): Promise<GetAllFilmsDto> {
-    const url = `${config.get('urls.kinopoisk.base')}/${KinopoiskAPI.films}`;
-    const { data } = await firstValueFrom(
-      this.httpService
-        .get<GetAllFilmsDto>(url, {
+    try {
+      const url = `${config.get("urls.kinopoisk.base")}/${
+        KinopoiskApiEnum.FILMS
+      }`;
+      const { data } = await this.httpService.axiosRef.get<GetAllFilmsDto>(
+        url,
+        {
           headers: {
-            'X-API-KEY': process.env.KINOPOISK_APIKEY,
-            'Content-Type': 'application/json',
+            "X-API-KEY": config.get("kinopoiskKey"),
+            "Content-Type": "application/json",
           },
           params: queryParams,
-        })
-        .pipe(
-          catchError((error: AxiosError<{ message: string }>) => {
-            throw new HttpException(
-              error.response.data.message,
-              HttpStatus.BAD_GATEWAY,
-            );
-          }),
-        ),
-    );
+        },
+      );
 
-    return data;
+      return await data;
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.message,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  public async getFilters(): Promise<GetAllFiltersDto> {
+    const url = `${config.get("urls.kinopoisk.base")}/${
+      KinopoiskApiEnum.FILTERS
+    }`;
+
+    try {
+      const cachedData = await this.cacheService.get<GetAllFiltersDto>(
+        CacheKeysEnum.FILTERS,
+      );
+
+      if (cachedData) {
+        return cachedData;
+      }
+
+      const { data } = await this.httpService.axiosRef.get<GetAllFiltersDto>(
+        url,
+        {
+          headers: {
+            "X-API-KEY": config.get("kinopoiskKey"),
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      await this.cacheService.set(CacheKeysEnum.FILTERS, data);
+
+      return await data;
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.message,
+        HttpStatus.BAD_GATEWAY,
+      );
+    }
   }
 }

@@ -1,18 +1,20 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { FilmOrderEnum, FilmTypeEnum } from '../../../constants';
-import { IFilm } from '../../../types';
+import { ApiProperty } from "@nestjs/swagger";
+
+import { FilmOrderEnum, FilmTypeEnum } from "../../../constants";
+import { Film, Genre } from "../../../types";
+import { Countries } from "../../../types/film";
 
 export class GetAllFilmsDto {
   @ApiProperty({ type: Number })
-  readonly total: number;
+  public readonly total: number;
 
   @ApiProperty({ type: Number })
-  readonly totalPages: number;
+  public readonly totalPages: number;
 
   @ApiProperty({
-    type: [IFilm],
+    type: [Film],
   })
-  readonly items: IFilm[];
+  public readonly items: Film[];
 }
 
 export class GetAllFilmsQueriesDto {
@@ -21,97 +23,113 @@ export class GetAllFilmsQueriesDto {
     isArray: true,
     type: Number,
     description:
-      'Список id стран разделенные запятой. Например countries=1,2,3. На данный момент можно указать не более одной страны',
+      "Список id стран разделенные запятой. Например countries=1,2,3. На данный момент можно указать не более одной страны",
   })
-  readonly countries?: string | undefined;
+  public readonly countries?: string | undefined;
 
   @ApiProperty({
     required: false,
     isArray: true,
     type: Number,
     description:
-      'Список id жанров разделенные запятой. Например genres=1,2,3. На данный момент можно указать не более одного жанра',
+      "Список id жанров разделенные запятой. Например genres=1,2,3. На данный момент можно указать не более одного жанра",
   })
-  readonly genres?: string | undefined;
+  public readonly genres?: string | undefined;
 
   @ApiProperty({
     required: false,
     enum: FilmOrderEnum,
     default: FilmOrderEnum.RATING,
-    description: 'Сортировка',
+    description: "Сортировка",
   })
-  readonly order?: keyof typeof FilmOrderEnum | undefined;
+  public readonly order?: keyof typeof FilmOrderEnum | undefined;
 
   @ApiProperty({
     required: false,
     enum: FilmTypeEnum,
     default: FilmTypeEnum.ALL,
-    description: 'Тип фильма',
+    description: "Тип фильма",
   })
-  readonly type?: keyof typeof FilmTypeEnum | undefined;
+  public readonly type?: keyof typeof FilmTypeEnum | undefined;
 
   @ApiProperty({
     required: false,
     default: 0,
     type: Number,
-    description: 'Минимальный рейтинг',
+    description: "Минимальный рейтинг",
   })
-  readonly ratingFrom?: string | undefined;
+  public readonly ratingFrom?: string | undefined;
 
   @ApiProperty({
     required: false,
     default: 10,
     type: Number,
-    description: 'Максимальный рейтинг',
+    description: "Максимальный рейтинг",
   })
-  readonly ratingTo?: string | undefined;
+  public readonly ratingTo?: string | undefined;
 
   @ApiProperty({
     required: false,
     default: 1000,
     type: Number,
-    description: 'Минимальный год',
+    description: "Минимальный год",
   })
-  readonly yearFrom?: string | undefined;
+  public readonly yearFrom?: string | undefined;
 
   @ApiProperty({
     required: false,
     default: 3000,
     type: Number,
-    description: 'Максимальный год',
+    description: "Максимальный год",
   })
-  readonly yearTo?: string | undefined;
+  public readonly yearTo?: string | undefined;
 
   @ApiProperty({
     required: false,
   })
-  readonly imdbId?: string | undefined;
+  public readonly imdbId?: string | undefined;
 
   @ApiProperty({
     required: false,
-    description: 'Ключевое слово, которое встречается в названии фильма',
+    description: "Ключевое слово, которое встречается в названии фильма",
   })
-  readonly keyword?: string | undefined;
+  public readonly keyword?: string | undefined;
 
   @ApiProperty({
     required: false,
-    default: '1',
+    default: "1",
     type: Number,
-    description: 'Номер страницы',
+    description: "Номер страницы",
   })
-  readonly page?: string | undefined;
+  public readonly page?: string | undefined;
 }
 
 export class GetAllFilmsQueriesParamsDto {
-  readonly countries?: string | undefined;
-  readonly genres?: string | undefined;
-  readonly order?: keyof typeof FilmOrderEnum | undefined;
-  readonly type?: keyof typeof FilmTypeEnum | undefined;
-  readonly ratingFrom?: number | undefined;
-  readonly ratingTo?: number | undefined;
-  readonly yearFrom?: number | undefined;
-  readonly yearTo?: number | undefined;
-  readonly imdbId?: string | undefined;
-  readonly keyword?: string | undefined;
-  readonly page?: number | undefined;
+  public readonly countries?: string | undefined;
+
+  public readonly genres?: string | undefined;
+
+  public readonly order?: keyof typeof FilmOrderEnum | undefined;
+
+  public readonly type?: keyof typeof FilmTypeEnum | undefined;
+
+  public readonly ratingFrom?: number | undefined;
+
+  public readonly ratingTo?: number | undefined;
+
+  public readonly yearFrom?: number | undefined;
+
+  public readonly yearTo?: number | undefined;
+
+  public readonly imdbId?: string | undefined;
+
+  public readonly keyword?: string | undefined;
+
+  public readonly page?: number | undefined;
+}
+
+export class GetAllFiltersDto {
+  public readonly genres: Genre[];
+
+  public readonly countries: Countries[];
 }
